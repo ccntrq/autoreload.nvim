@@ -38,7 +38,7 @@ if you have unsaved changes.
 You can change any of the default options:
 
 ```lua
-require("autoreload.nvim").setup({
+require("autoreload").setup({
   autoread = true,
   events = { "BufEnter", "FocusGained" },
   timer = {
@@ -55,8 +55,8 @@ require("autoreload.nvim").setup({
 
 ## API
 
-- `require("autoreload.nvim").setup(opts)`
-- `require("autoreload.nvim").stop()`
+- `require("autoreload").setup(opts)`
+- `require("autoreload").stop()`
 
 ## Notes
 
@@ -68,5 +68,3 @@ This plugin comes from a setup I used in my own Neovim config for a long time,
 now published as a focused Lua plugin.
 
 - Existing Vimscript version: [djoshea/vim-autoread](https://github.com/djoshea/vim-autoread).
-changes
-more changes
