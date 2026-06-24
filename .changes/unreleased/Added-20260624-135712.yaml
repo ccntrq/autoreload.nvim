@@ -1,3 +1,0 @@
-kind: Added
-body: "Configurable conflict handling via the `conflict` option, including a blocking\n`\"prompt\"` strategy that lets you reload, keep, or diff against disk when an\nexternal change collides with unsaved edits. #2\n\nSuggested by @mightyiam in #1"
-time: 2026-06-24T13:57:12.719846592+02:00

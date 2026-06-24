@@ -1,5 +1,0 @@
-kind: Deprecated
-body: |
-    `notify.on_conflict` is superseded by `conflict.strategy` (still honored as a
-    legacy alias: `true` → `"notify"`, `false` → `"none"`). #2
-time: 2026-06-24T13:59:00.467625738+02:00
