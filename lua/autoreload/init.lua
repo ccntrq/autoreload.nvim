@@ -1,4 +1,5 @@
 local M = {}
+M.version = "1.0.0"
 local uv = vim.uv or vim.loop
 
 local defaults = {
