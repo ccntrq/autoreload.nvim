@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    branches: [ master ]
+    paths: [ CHANGELOG.md ]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+
+    - name: Get the latest version
+      id: latest
+      uses: miniscruff/changie-action@v3
+      with:
+        version: latest
+        args: latest
+
+    - name: Resolve maintenance branch
+      id: branch
+      run: |
+        VERSION="${{ steps.latest.outputs.output }}"
+        MAJOR="${VERSION#v}"
+        MAJOR="${MAJOR%%.*}"
+        echo "name=v${MAJOR}.x" >> "$GITHUB_OUTPUT"
+
+    - name: Create and push tag
+      run: |
+        git tag "${{ steps.latest.outputs.output }}"
+        git push origin "${{ steps.latest.outputs.output }}"
+
+    - name: Create GitHub release
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        gh release create "${{ steps.latest.outputs.output }}" \
+          --verify-tag \
+          --title "${{ steps.latest.outputs.output }}" \
+          --notes-file ".changes/${{ steps.latest.outputs.output }}.md"
+
+    # New major branches are created, existing maintenance branches are
+    # fast-forwarded - both are a plain (non-forced) push of this commit.
+    - name: Push maintenance branch
+      run: git push origin HEAD:refs/heads/${{ steps.branch.outputs.name }}
